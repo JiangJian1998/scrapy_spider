@@ -11,7 +11,7 @@ class CommentSpider(scrapy.Spider):
     name = "comment_spider"
     # allowed_domains = ["jd.com"]
     product_id = input("请输入商品id：")
-    # 26482700253 5155905
+    # example id: 26482700253 5155905
     if(not product_id.isdigit()):
         print("输入id有误！")
         exit(-1)
@@ -22,16 +22,18 @@ class CommentSpider(scrapy.Spider):
 
     def parse(self, response):
         if(response.status == 200):
-            js = json.loads(response.body.decode("gbk"))
-            comments = js["comments"]
+            js = json.loads(response.body.decode("gbk"))#使用json模块处理
+            comments = js["comments"]#当前json地址所有评论
             max_page = int(js["maxPage"])
             url = response.url
             now_page = int(re.findall("page=(\w+)", url)[0])
 
+            # 将下一个json地址加入爬取队列，直到达到最大页
             if (now_page + 1 <= max_page):
                 url = re.sub(r"page=\d+", "page=" + str(now_page + 1), url)
                 yield scrapy.Request(url, callback=self.parse)
 
+            # 将目标信息保存
             for each in comments:
                 item = CommentItem()
 
