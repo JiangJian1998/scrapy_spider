@@ -14,6 +14,7 @@ BOT_NAME = 'jd'
 SPIDER_MODULES = ['jd.spiders']
 NEWSPIDER_MODULE = 'jd.spiders'
 
+SAVE_DIR = "./comments/"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'jd (+http://www.yourdomain.com)'
