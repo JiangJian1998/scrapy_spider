@@ -1,3 +1,4 @@
 /.idea/*
 /jd/comments/*
 /jd/jd/__pycache__/*
+/jd/jd/spiders/__pycache__/*
